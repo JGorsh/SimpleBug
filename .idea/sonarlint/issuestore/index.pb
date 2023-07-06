@@ -1,6 +1,4 @@
 
-`
-0src/main/java/com/example/model/domain/User.java,b/7/b7fd65830ae86edcdc9cb78b8ef6c7e2db7875b0
 c
 3src/main/java/com/example/service/IssueService.java,3/a/3ac0eb1aea71e3977323bb26e0eff07a47c0fae9
 k

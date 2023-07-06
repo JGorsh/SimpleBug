@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -38,7 +37,7 @@ public class Issue {
     @JoinColumn(name="user_id")
     private User user;
 
-    @OneToMany
+    @OneToMany(mappedBy="issue")
     private List<Comment> comments;
 
     @CreationTimestamp
