@@ -54,7 +54,7 @@ public class IssueServiceRdb implements IssueService {
                         ));
         var issue = mapper.toEntity(issueDto);
         issue.setProject(project);
-        issue.setUser(user);
+        issue.setPerson(user);
         issueRepository.save(issue);
         return mapper.fromEntity(issue);
     }
@@ -77,7 +77,7 @@ public class IssueServiceRdb implements IssueService {
                         ));
         issue = mapper.updateEntityFromDto(issueDto, issue);
         issue.setProject(project);
-        issue.setUser(user);
+        issue.setPerson(user);
         issueRepository.save(issue);
         return mapper.fromEntity(issue);
     }

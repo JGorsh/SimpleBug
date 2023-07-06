@@ -34,8 +34,8 @@ public class Issue {
     private Project project;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private User user;
+    @JoinColumn(name="person_id")
+    private Person person;
 
     @OneToMany(mappedBy="issue")
     private List<Comment> comments;

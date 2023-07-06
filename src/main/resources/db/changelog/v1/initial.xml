@@ -49,5 +49,10 @@
         <addForeignKeyConstraint baseTableName="comment" baseColumnNames="issue_id"
                                  constraintName="issue_comment_fk" referencedTableName="issue" referencedColumnNames="id" />
     </changeSet>
-
+    <changeSet  author="gorsh"  id="renameTable">
+        <renameTable
+                      newTableName="person"
+                      oldTableName="user"
+                     />
+    </changeSet>
 </databaseChangeLog>
