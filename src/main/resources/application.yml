@@ -3,12 +3,12 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/simpleBug
     password: postgres
     username: postgres
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
@@ -18,7 +18,7 @@ spring:
 #spring:
 #  datasource:
 #    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:~/test;DB_CLOSE_ON_EXIT=FALSE
+#    url: jdbc:h2:~/tes;DB_CLOSE_ON_EXIT=FALSE
 #    username: sa
 #    password:
 #  jpa:

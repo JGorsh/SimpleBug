@@ -11,9 +11,9 @@
             </column>
             <column name="name" type="VARCHAR(255)" />
         </createTable>
-        <createTable tableName="user">
+        <createTable tableName="person">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
-                <constraints primaryKey="true" primaryKeyName="user_pk" />
+                <constraints primaryKey="true" primaryKeyName="person_pk" />
             </column>
             <column name="name" type="VARCHAR(255)" />
         </createTable>
@@ -25,14 +25,14 @@
             <column name="description" type="VARCHAR(1024)"/>
             <column name="project_id" type="BIGINT"/>
             <column name="priority" type="INTEGER"/>
-            <column name="user_id" type="BIGINT"/>
+            <column name="person_id" type="BIGINT"/>
             <column name="created" type="TIMESTAMP"/>
             <column name="resolved" type="TIMESTAMP"/>
         </createTable>
         <addForeignKeyConstraint baseTableName="issue" baseColumnNames="project_id"
                                  constraintName="issue_project_fk" referencedTableName="project" referencedColumnNames="id" />
-        <addForeignKeyConstraint baseTableName="issue" baseColumnNames="user_id"
-                                 constraintName="issue_user_fk" referencedTableName="user" referencedColumnNames="id" />
+        <addForeignKeyConstraint baseTableName="issue" baseColumnNames="person_id"
+                                 constraintName="issue_person_fk" referencedTableName="person" referencedColumnNames="id" />
     </changeSet>
     <changeSet id="202203272017" author="pmikhalev">
         <sqlFile path="data/init.sql" relativeToChangelogFile="true"/>
@@ -48,11 +48,5 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="comment" baseColumnNames="issue_id"
                                  constraintName="issue_comment_fk" referencedTableName="issue" referencedColumnNames="id" />
-    </changeSet>
-    <changeSet  author="gorsh"  id="renameTable">
-        <renameTable
-                      newTableName="person"
-                      oldTableName="user"
-                     />
     </changeSet>
 </databaseChangeLog>
