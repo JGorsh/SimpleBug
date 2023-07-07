@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/simpleBug
+    url: jdbc:postgresql://localhost:5432/postgres
     password: postgres
     username: postgres
   jpa:
