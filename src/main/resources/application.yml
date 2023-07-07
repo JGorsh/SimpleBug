@@ -15,24 +15,6 @@ spring:
     show-sql: true
   liquibase:
     change-log: classpath:db/changelog/master.xml
-#spring:
-#  datasource:
-#    driver-class-name: org.h2.Driver
-#    url: jdbc:h2:~/tes;DB_CLOSE_ON_EXIT=FALSE
-#    username: sa
-#    password:
-#  jpa:
-#    properties:
-#      hibernate:
-#        generate_statistic: true
-#    hibernate:
-#      ddl-auto: none
-#    show-sql: true
-#  liquibase:
-#    change-log: classpath:db/changelog/master.xml
-#  h2:
-#    console:
-#      enabled: true
-#      path: /h2
+
 
 
