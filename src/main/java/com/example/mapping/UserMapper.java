@@ -1,14 +1,14 @@
 package com.example.mapping;
 
 import com.example.model.domain.Person;
-import com.example.model.dto.UserDto;
+import com.example.model.dto.PersonDto;
 import org.mapstruct.Mapper;
 
 @Mapper
 public interface UserMapper {
 
-    Person toEntity(UserDto userDto);
+    Person toEntity(PersonDto personDto);
 
-    UserDto fromEntity(Person person);
+    PersonDto fromEntity(Person person);
 
 }

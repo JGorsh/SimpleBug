@@ -1,24 +1,21 @@
 package com.example;
 
 
-import com.example.mapping.IssueMapper;
 import com.example.mapping.IssueMapperImpl;
 import com.example.model.domain.Issue;
 import com.example.model.dto.IssueDto;
 import com.example.repository.IssueRepository;
 import com.example.repository.ProjectRepository;
-import com.example.repository.UserRepository;
+import com.example.repository.PersonRepository;
 import com.example.service.IssueServiceRdb;
-import org.aspectj.lang.annotation.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import static org.hamcrest.MatcherAssert.assertThat;
+
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -26,7 +23,7 @@ import java.util.Optional;
 
 
 @ExtendWith(MockitoExtension.class)
-public class IssueServiceTest {
+class IssueServiceTest {
 
     @InjectMocks
     IssueServiceRdb issueServiceRdb;
@@ -38,7 +35,7 @@ public class IssueServiceTest {
     ProjectRepository projectRepository;
 
     @Mock
-    UserRepository userRepository;
+    PersonRepository personRepository;
 
     @Mock
     IssueMapperImpl mapper;

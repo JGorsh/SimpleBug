@@ -11,7 +11,7 @@ public class CreateIssueRequestDto {
     private String subject;
     private String description;
     @NotNull
-    private UserDto user;
+    private PersonDto person;
     @NotNull
     private ProjectDto project;
 

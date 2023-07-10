@@ -1,10 +1,9 @@
 package com.example.controller;
 
 import com.example.model.dto.CreateIssueRequestDto;
-import com.example.model.dto.IssueDto;
 import com.example.model.dto.ProjectDto;
 import com.example.model.dto.UpdateIssueRequestDto;
-import com.example.model.dto.UserDto;
+import com.example.model.dto.PersonDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,7 @@ class IssueControllerTest {
 
 
     public static final String ID_FOR_TEST_ISSUE = "1000";
-    UserDto user;
+    PersonDto user;
     ProjectDto project;
 
     @Autowired
@@ -46,7 +45,7 @@ class IssueControllerTest {
 
     @BeforeEach
     void setUp() {
-        user = new UserDto();
+        user = new PersonDto();
         user.setId(1L);
         user.setName("Mike");
         project = new ProjectDto();

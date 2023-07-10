@@ -6,7 +6,7 @@ import com.example.model.dto.IssueDto;
 import com.example.model.dto.UpdateIssueRequestDto;
 import com.example.repository.IssueRepository;
 import com.example.repository.ProjectRepository;
-import com.example.repository.UserRepository;
+import com.example.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,7 +24,7 @@ public class IssueServiceRdb implements IssueService {
 
     private final IssueRepository issueRepository;
     private final ProjectRepository projectRepository;
-    private final UserRepository userRepository;
+    private final PersonRepository personRepository;
     private final IssueMapper mapper;
 
     @Override
@@ -47,7 +47,7 @@ public class IssueServiceRdb implements IssueService {
                         () -> new EntityNotFoundException(String.format(PROJECT_NOT_FOUND,
                                 issueDto.getProject().getId())
                         ));
-        var user = userRepository.findById(issueDto.getUser().getId())
+        var user = personRepository.findById(issueDto.getPerson().getId())
                 .orElseThrow(
                         () -> new EntityNotFoundException(String.format(USER_NOT_FOUND,
                                 issueDto.getProject().getId())
@@ -70,7 +70,7 @@ public class IssueServiceRdb implements IssueService {
                         () -> new EntityNotFoundException(String.format(PROJECT_NOT_FOUND,
                                 issueDto.getProject().getId())
                         ));
-        var user = userRepository.findById(issueDto.getUser().getId())
+        var user = personRepository.findById(issueDto.getPerson().getId())
                 .orElseThrow(
                         () -> new EntityNotFoundException(String.format(USER_NOT_FOUND,
                                 issueDto.getProject().getId())

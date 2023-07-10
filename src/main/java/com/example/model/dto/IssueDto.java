@@ -13,7 +13,7 @@ public class IssueDto {
     private Long id;
     private String subject;
     private String description;
-    private UserDto user;
+    private PersonDto person;
     private ProjectDto project;
     private List<Comment> comments;
 
