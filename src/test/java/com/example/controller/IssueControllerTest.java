@@ -34,7 +34,7 @@ class IssueControllerTest {
 
 
     public static final String ID_FOR_TEST_ISSUE = "1000";
-    PersonDto user;
+    PersonDto person;
     ProjectDto project;
 
     @Autowired
@@ -45,9 +45,9 @@ class IssueControllerTest {
 
     @BeforeEach
     void setUp() {
-        user = new PersonDto();
-        user.setId(1L);
-        user.setName("Mike");
+        person = new PersonDto();
+        person.setId(1L);
+        person.setName("Mike");
         project = new ProjectDto();
         project.setId(1L);
         project.setName("Project 1");
@@ -77,7 +77,7 @@ class IssueControllerTest {
         var issue = new CreateIssueRequestDto();
         issue.setSubject("Test subject");
         issue.setDescription("Test description");
-        issue.setUser(user);
+        issue.setPerson(person);
         issue.setProject(project);
         mockMvc.perform(post("/issues")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -93,7 +93,7 @@ class IssueControllerTest {
         issue.setSubject("Issue test");
         issue.setDescription("Issue for test updated");
         issue.setProject(project);
-        issue.setUser(user);
+        issue.setPerson(person);
         mockMvc.perform(put("/issues")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(issue)))
