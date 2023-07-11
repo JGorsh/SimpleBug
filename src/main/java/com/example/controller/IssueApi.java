@@ -5,13 +5,16 @@ import com.example.model.dto.CreateIssueRequestDto;
 import com.example.model.dto.IssueDto;
 import com.example.model.dto.UpdateIssueRequestDto;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.Map;
+
 
 @RequestMapping("issues")
 public interface IssueApi {
@@ -29,5 +32,7 @@ public interface IssueApi {
     @PutMapping
     IssueDto updateIssue(UpdateIssueRequestDto issue);
 
+    @GetMapping("/filtered_list")
+    List<Issue> filteredListWithCriteria(@RequestParam Map<String, String> params);
 
 }
