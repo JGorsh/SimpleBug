@@ -10,6 +10,7 @@ import com.example.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -31,6 +32,11 @@ public class IssueServiceRdb implements IssueService {
     public Page<IssueDto> getAllIssues(Integer page, Integer size) {
         return issueRepository.findAll(PageRequest.of(page, size))
                 .map(mapper::fromEntity);
+    }
+
+    @Override
+    public Page<IssueDto> getAllIssues(Integer page, Integer size, Specification<IssueDto> specification) {
+        return issueRepository.findAll(PageRequest.of(page, size),specification).map(mapper::fromEntity);
     }
 
     @Override
