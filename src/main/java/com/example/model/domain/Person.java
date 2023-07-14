@@ -1,6 +1,6 @@
 package com.example.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Table
 @Getter
 @Setter
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Person {
 
     @Id

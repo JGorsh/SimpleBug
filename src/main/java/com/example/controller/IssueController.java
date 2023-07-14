@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.model.domain.Issue;
 import com.example.model.dto.CreateIssueRequestDto;
 import com.example.model.dto.IssueDto;
 import com.example.model.dto.UpdateIssueRequestDto;
@@ -44,7 +45,7 @@ public class IssueController implements IssueApi {
 
     @Override
     public Page<IssueDto> filteredListWithCriteria(Integer page, Integer size, Map<String, String> params) {
-        Specification<IssueDto> searchSpecification = filterSpecification.getSearchSpecification(params);
-        return issueService.getAllIssues(page, size, searchSpecification);
+        Specification<Issue> searchSpecification = filterSpecification.getSearchSpecification(params);
+        return issueService.getAllIssues( searchSpecification, page, size);
     }
 }

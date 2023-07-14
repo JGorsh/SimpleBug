@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.mapping.IssueMapper;
+import com.example.model.domain.Issue;
 import com.example.model.dto.CreateIssueRequestDto;
 import com.example.model.dto.IssueDto;
 import com.example.model.dto.UpdateIssueRequestDto;
@@ -35,8 +36,8 @@ public class IssueServiceRdb implements IssueService {
     }
 
     @Override
-    public Page<IssueDto> getAllIssues(Integer page, Integer size, Specification<IssueDto> specification) {
-        return issueRepository.findAll(PageRequest.of(page, size),specification).map(mapper::fromEntity);
+    public Page<IssueDto> getAllIssues(Specification<Issue> specification, Integer page, Integer size) {
+        return issueRepository.findAll(specification, PageRequest.of(page, size)).map(mapper::fromEntity);
     }
 
     @Override

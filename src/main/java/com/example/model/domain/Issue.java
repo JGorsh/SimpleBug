@@ -11,10 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.Instant;
-import java.util.List;
+
 
 @Entity
 @Table
@@ -36,9 +35,6 @@ public class Issue {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="person_id")
     private Person person;
-
-    @OneToMany(mappedBy="issue")
-    private List<Comment> comments;
 
     @CreationTimestamp
     private Instant created;

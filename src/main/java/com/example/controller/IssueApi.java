@@ -30,7 +30,7 @@ public interface IssueApi {
     @PutMapping
     IssueDto updateIssue(UpdateIssueRequestDto issue);
 
-    @GetMapping("/filtered_list")
+    @GetMapping("filters")
     Page<IssueDto> filteredListWithCriteria(@RequestParam(required = false, defaultValue = "0") Integer page,
                                          @RequestParam(required = false, defaultValue = "10") Integer size,
                                          @RequestParam Map<String, String> params);

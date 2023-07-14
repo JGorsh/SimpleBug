@@ -1,7 +1,6 @@
 package com.example.repository;
 
 import com.example.model.domain.Issue;
-import com.example.model.dto.IssueDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -18,5 +17,7 @@ public interface IssueRepository extends JpaRepository<Issue, Long>, JpaSpecific
     Page<Issue> findAll(Pageable pageable);
 
     @EntityGraph(attributePaths = {"project", "person"})
-    Page<Issue> findAll (Pageable pageable, Specification<IssueDto> specification);
+    @Override
+    Page<Issue> findAll(Specification<Issue> spec, Pageable pageable);
+
 }

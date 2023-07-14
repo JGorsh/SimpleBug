@@ -1,7 +1,7 @@
 package com.example.service;
 
 
-import com.example.model.dto.IssueDto;
+import com.example.model.domain.Issue;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 @Service
 public class FilterSpecification{
 
-   public Specification<IssueDto> getSearchSpecification(Map<String, String> params) {
+   public Specification<Issue> getSearchSpecification(Map<String, String> params) {
         return (root, query, builder) -> {
 
             List<Predicate> predicates = new ArrayList<>();
