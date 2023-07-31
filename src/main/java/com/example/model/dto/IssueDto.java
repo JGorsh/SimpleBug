@@ -15,7 +15,6 @@ public class IssueDto {
     private String description;
     private PersonDto person;
     private ProjectDto project;
-    private List<Comment> comments;
 
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "UTC")
     private Instant created;
