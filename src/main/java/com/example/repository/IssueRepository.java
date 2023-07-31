@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.List;
 
 
 public interface IssueRepository extends JpaRepository<Issue, Long>, JpaSpecificationExecutor<Issue> {
@@ -19,5 +18,6 @@ public interface IssueRepository extends JpaRepository<Issue, Long>, JpaSpecific
 
     @EntityGraph(attributePaths = {"project", "person"})
     @Override
-    List<Issue> findAll(Specification<Issue> specification);
+    Page<Issue> findAll(Specification<Issue> spec, Pageable pageable);
+
 }

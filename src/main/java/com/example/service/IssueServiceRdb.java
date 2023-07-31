@@ -1,6 +1,7 @@
 package com.example.service;
 
 import com.example.mapping.IssueMapper;
+import com.example.model.domain.Issue;
 import com.example.model.dto.CreateIssueRequestDto;
 import com.example.model.dto.IssueDto;
 import com.example.model.dto.UpdateIssueRequestDto;
@@ -10,6 +11,7 @@ import com.example.repository.PersonRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -31,6 +33,11 @@ public class IssueServiceRdb implements IssueService {
     public Page<IssueDto> getAllIssues(Integer page, Integer size) {
         return issueRepository.findAll(PageRequest.of(page, size))
                 .map(mapper::fromEntity);
+    }
+
+    @Override
+    public Page<IssueDto> getAllIssues(Specification<Issue> specification, Integer page, Integer size) {
+        return issueRepository.findAll(specification, PageRequest.of(page, size)).map(mapper::fromEntity);
     }
 
     @Override

@@ -101,6 +101,4 @@ class IssueControllerTest {
                 .andExpect(jsonPath("$.subject", equalTo("Issue test")))
                 .andExpect(jsonPath("$.description", equalTo("Issue for test updated")));
     }
-
-
 }
