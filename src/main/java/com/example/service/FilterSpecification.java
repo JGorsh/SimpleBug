@@ -21,7 +21,8 @@ public class FilterSpecification{
             for(SearchIssueDto searchIssueDto : searchIssueDtos){
                 switch (searchIssueDto.getOperation()){
                     case LIKE:
-                        Predicate like = builder.like(builder.lower(root.get(searchIssueDto.getKey())), "%" + searchIssueDto.getValue().toString().toLowerCase() + "%");
+                        Predicate like = builder.like(builder.lower(root.get(searchIssueDto.getKey())),
+                                "%" + searchIssueDto.getValue().toString().toLowerCase() + "%");
                         predicates.add(like);
                         break;
                     case EQUAL:
@@ -32,10 +33,15 @@ public class FilterSpecification{
                         Predicate in = builder.in(root.get(searchIssueDto.getKey())).value(searchIssueDto.getValue());
                         predicates.add(in);
                         break;
+                    case NOT_EQUAL:
+                        Predicate notEqual = builder.notEqual(root.get(searchIssueDto.getKey()), searchIssueDto.getValue());
+                        predicates.add(notEqual);
+                        break;
+                    case NOT_IN:
+                        Predicate notIn = builder.not(root.get(searchIssueDto.getKey())).in(searchIssueDto.getValue());
+                        predicates.add(notIn);
+                        break;
                 }
-
-                Predicate equal = builder.equal(root.get(searchIssueDto.getKey()), searchIssueDto.getValue());
-                predicates.add(equal);
             }
             return builder.and(predicates.toArray(new Predicate[0]));
         };
