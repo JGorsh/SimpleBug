@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.model.domain.Issue;
 import com.example.model.dto.CreateIssueRequestDto;
 import com.example.model.dto.IssueDto;
+import com.example.model.dto.SearchIssueDto;
 import com.example.model.dto.UpdateIssueRequestDto;
 import com.example.service.FilterSpecification;
 import com.example.service.IssueService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -44,8 +46,8 @@ public class IssueController implements IssueApi {
     }
 
     @Override
-    public Page<IssueDto> filteredListWithCriteria(Integer page, Integer size, Map<String, String> params) {
-        Specification<Issue> searchSpecification = filterSpecification.getSearchSpecification(params);
+    public Page<IssueDto> filteredListWithCriteria(Integer page, Integer size, List<SearchIssueDto> searchIssueDtos) {
+        Specification<Issue> searchSpecification = filterSpecification.getSearchSpecification(searchIssueDtos);
         return issueService.getAllIssues( searchSpecification, page, size);
     }
 }
