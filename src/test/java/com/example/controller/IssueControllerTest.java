@@ -4,6 +4,7 @@ import com.example.model.dto.CreateIssueRequestDto;
 import com.example.model.dto.ProjectDto;
 import com.example.model.dto.UpdateIssueRequestDto;
 import com.example.model.dto.PersonDto;
+import com.example.service.FilterSpecification;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
+
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -24,6 +27,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
 
 @AutoConfigureMockMvc
@@ -42,6 +46,8 @@ class IssueControllerTest {
 
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private FilterSpecification filterSpecification;
 
     @BeforeEach
     void setUp() {
@@ -100,5 +106,13 @@ class IssueControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andExpect(jsonPath("$.subject", equalTo("Issue test")))
                 .andExpect(jsonPath("$.description", equalTo("Issue for test updated")));
+    }
+
+    @Test
+    void shouldReturnAllIssuesWithCriteria() throws Exception {
+        mockMvc.perform(post("/issues/filters").contentType(APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(new ArrayList<>())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", greaterThan(1)));
     }
 }
