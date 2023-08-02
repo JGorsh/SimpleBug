@@ -1,9 +1,6 @@
 package com.example.controller;
 
-import com.example.model.dto.CreateIssueRequestDto;
-import com.example.model.dto.ProjectDto;
-import com.example.model.dto.UpdateIssueRequestDto;
-import com.example.model.dto.PersonDto;
+import com.example.model.dto.*;
 import com.example.service.FilterSpecification;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,11 +13,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -48,6 +46,8 @@ class IssueControllerTest {
     private ObjectMapper objectMapper;
     @Autowired
     private FilterSpecification filterSpecification;
+
+    private List<Object> list ;
 
     @BeforeEach
     void setUp() {
@@ -110,9 +110,25 @@ class IssueControllerTest {
 
     @Test
     void shouldReturnAllIssuesWithCriteria() throws Exception {
+        list = new ArrayList<>();
         mockMvc.perform(post("/issues/filters").contentType(APPLICATION_JSON_VALUE)
-                        .content(objectMapper.writeValueAsString(new ArrayList<>())))
+                        .content(objectMapper.writeValueAsString(list)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", greaterThan(1)));
+    }
+
+    @Test
+    void shouldReturnIssuesWithIdFilter() throws Exception {
+        list = new ArrayList<>();
+        var issue = new SearchIssueDto();
+        issue.setKey("id");
+        issue.setValue(1L);
+        issue.setOperation(SearchOperation.EQUAL);
+        list.add(issue);
+        mockMvc.perform(post("/issues/filters").contentType(APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(list)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(1)))
+                .andExpect(jsonPath("$.content.[0].id", is(1)));
     }
 }
