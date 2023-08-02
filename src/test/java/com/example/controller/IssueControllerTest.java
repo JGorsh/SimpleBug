@@ -132,7 +132,7 @@ class IssueControllerTest {
     }
 
     @Test
-    void shouldReturnFourIssuesWithFilterSubject() throws Exception {
+    void shouldReturnFourIssuesWithFilterDescription() throws Exception {
         list = new ArrayList<>();
         var issue = new SearchIssueDto();
         issue.setKey("description");
@@ -146,7 +146,7 @@ class IssueControllerTest {
                 .andExpect(jsonPath("$.totalElements", is(4)));
     }
     @Test
-    void shouldReturnOneIssuesWithFilterSubject() throws Exception {
+    void shouldReturnOneIssuesWithFilterDescription() throws Exception {
         list = new ArrayList<>();
         var issue = new SearchIssueDto();
         issue.setKey("description");
@@ -158,6 +158,44 @@ class IssueControllerTest {
                         .content(objectMapper.writeValueAsString(list)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
-                .andExpect(jsonPath("$.content.[0].id", is(4)));
+                .andExpect(jsonPath("$.content.[0].id", is(4)))
+                .andExpect(jsonPath("$.content.[0].description", is("broke")));
+    }
+
+    @Test
+    void shouldReturnFourIssuesWithFilterAll() throws Exception {
+        list = new ArrayList<>();
+        var issue1 = new SearchIssueDto("description","bug",SearchOperation.LIKE);
+        var issue2 = new SearchIssueDto("subject", "Issue1", SearchOperation.LIKE);
+        var issue3 = new SearchIssueDto("id","1",SearchOperation.EQUAL);
+        list.add(issue1);
+        list.add(issue2);
+        list.add(issue3);
+        mockMvc.perform(post("/issues/filters")
+                        .contentType(APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(list)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(1)))
+                .andExpect(jsonPath("$.content.[0].subject", is("Issue1")))
+                .andExpect(jsonPath("$.content.[0].description", is("Issue with bug")))
+                .andExpect(jsonPath("$.content.[0].id", is(1)));
+    }
+
+    @Test
+    void shouldReturnFourIssuesWithFilterSubject() throws Exception {
+        list = new ArrayList<>();
+        var issue = new SearchIssueDto();
+        issue.setKey("subject");
+        issue.setValue("Issue1");
+        issue.setOperation(SearchOperation.LIKE);
+        list.add(issue);
+        mockMvc.perform(post("/issues/filters")
+                        .contentType(APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(list)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(3)))
+                .andExpect(jsonPath("$.content.[0].subject", is("Issue1")))
+                .andExpect(jsonPath("$.content.[1].subject", is("Issue1")))
+                .andExpect(jsonPath("$.content.[2].subject", is("Issue1")));
     }
 }
