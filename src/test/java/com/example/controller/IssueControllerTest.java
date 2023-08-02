@@ -13,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +117,7 @@ class IssueControllerTest {
     }
 
     @Test
-    void shouldReturnIssuesWithIdFilter() throws Exception {
+    void shouldReturnIssuesWithFilterId() throws Exception {
         list = new ArrayList<>();
         var issue = new SearchIssueDto();
         issue.setKey("id");
@@ -130,5 +129,35 @@ class IssueControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.content.[0].id", is(1)));
+    }
+
+    @Test
+    void shouldReturnFourIssuesWithFilterSubject() throws Exception {
+        list = new ArrayList<>();
+        var issue = new SearchIssueDto();
+        issue.setKey("description");
+        issue.setValue("bug");
+        issue.setOperation(SearchOperation.LIKE);
+        list.add(issue);
+        mockMvc.perform(post("/issues/filters")
+                        .contentType(APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(list)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(4)));
+    }
+    @Test
+    void shouldReturnOneIssuesWithFilterSubject() throws Exception {
+        list = new ArrayList<>();
+        var issue = new SearchIssueDto();
+        issue.setKey("description");
+        issue.setValue("bro");
+        issue.setOperation(SearchOperation.LIKE);
+        list.add(issue);
+        mockMvc.perform(post("/issues/filters")
+                        .contentType(APPLICATION_JSON_VALUE)
+                        .content(objectMapper.writeValueAsString(list)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.totalElements", is(1)))
+                .andExpect(jsonPath("$.content.[0].id", is(4)));
     }
 }
