@@ -127,7 +127,7 @@ class IssueControllerTest {
     @MethodSource("generateData")
     void shouldReturnIssuesWithParameters(List<SearchIssueDto> issueDtoList) throws Exception {
         mockMvc.perform(post("/issues/filters").contentType(APPLICATION_JSON_VALUE)
-                        .content(objectMapper.writeValueAsString(list)))
+                        .content(objectMapper.writeValueAsString(issueDtoList)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
                 .andExpect(jsonPath("$.content.[0].id", is(Integer.parseInt(issueDtoList.get(0).getValue()))));
