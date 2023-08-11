@@ -7,7 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,7 +20,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -120,16 +124,22 @@ class IssueControllerTest {
     }
 
     @ParameterizedTest(name = "ParameterizedTest")
-    @CsvSource({
-            "ID, 1"
-    })
-    void shouldReturnIssuesWithParameters(FieldNameFilter name, String value) throws Exception {
-        list = List.of(new SearchIssueDto(name,value));
+    @MethodSource("generateData")
+    void shouldReturnIssuesWithParameters(List<SearchIssueDto> issueDtoList) throws Exception {
         mockMvc.perform(post("/issues/filters").contentType(APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(list)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.totalElements", is(1)))
-                .andExpect(jsonPath("$.content.[0].id", is(Integer.parseInt(value))));
+                .andExpect(jsonPath("$.content.[0].id", is(Integer.parseInt(issueDtoList.get(0).getValue()))));
+    }
+
+    private static Stream<Arguments> generateData() {
+        return Stream.of(
+                Arguments.of(Arrays.asList(new SearchIssueDto())),
+                Arguments.of(Arrays.asList()),
+                Arguments.of(Arrays.asList()),
+                Arguments.of(Arrays.asList())
+        );
     }
 //    @Test
 //    void shouldReturnIssuesWithFilterId() throws Exception {
