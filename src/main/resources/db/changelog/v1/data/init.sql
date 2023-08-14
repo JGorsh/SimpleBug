@@ -25,7 +25,7 @@ INSERT INTO ISSUE(SUBJECT, DESCRIPTION, PROJECT_ID, PRIORITY, PERSON_ID, CREATED
 VALUES('Issue2', 'broke', 1, 1, 3, now(), now());
 
 INSERT INTO ISSUE(SUBJECT, DESCRIPTION, PROJECT_ID, PRIORITY, PERSON_ID, CREATED, RESOLVED)
-VALUES('Issue2', 'Issue with bug', 2, 1, 1, now(), now());
+VALUES('Issue3', 'add func', 2, 1, 1, now(), now());
 
 
 

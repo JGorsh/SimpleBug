@@ -26,7 +26,7 @@ public class FilterSpecification{
                         predicates.add(likeSubject);
                         break;
                     case DESCRIPTION:
-                        Predicate likeDesc = builder.like(builder.lower(root.get("descripton")),
+                        Predicate likeDesc = builder.like(builder.lower(root.get("description")),
                                 "%" + searchIssueDto.getValue().toString().toLowerCase() + "%");
                         predicates.add(likeDesc);
                         break;

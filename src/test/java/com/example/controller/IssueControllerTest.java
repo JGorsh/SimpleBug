@@ -24,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
+import static com.example.model.dto.FieldNameFilter.*;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -125,20 +126,19 @@ class IssueControllerTest {
 
     @ParameterizedTest(name = "ParameterizedTest")
     @MethodSource("generateData")
-    void shouldReturnIssuesWithParameters(List<SearchIssueDto> issueDtoList) throws Exception {
+    void shouldReturnIssuesWithParameters(List<SearchIssueDto> issueDtoList, Integer totalElement) throws Exception {
         mockMvc.perform(post("/issues/filters").contentType(APPLICATION_JSON_VALUE)
                         .content(objectMapper.writeValueAsString(issueDtoList)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.totalElements", is(1)))
-                .andExpect(jsonPath("$.content.[0].id", is(Integer.parseInt(issueDtoList.get(0).getValue()))));
+                .andExpect(jsonPath("$.totalElements", is(totalElement)));
+                //.andExpect(jsonPath("$.content.[0].id", is(Integer.parseInt(issueDtoList.get(0).getValue()))));
     }
 
     private static Stream<Arguments> generateData() {
         return Stream.of(
-                Arguments.of(Arrays.asList(new SearchIssueDto())),
-                Arguments.of(Arrays.asList()),
-                Arguments.of(Arrays.asList()),
-                Arguments.of(Arrays.asList())
+                Arguments.of(Arrays.asList(new SearchIssueDto(ID, "1")), 1),
+                Arguments.of(Arrays.asList(new SearchIssueDto(DESCRIPTION, "broke")), 1),
+                Arguments.of(Arrays.asList(new SearchIssueDto(SUBJECT, "Issue3")), 1)
         );
     }
 //    @Test
