@@ -1,4 +1,4 @@
 DELETE FROM ISSUE WHERE ID = 1000;
 
 INSERT INTO ISSUE(ID, SUBJECT, DESCRIPTION, PROJECT_ID, PRIORITY, PERSON_ID, CREATED, RESOLVED)
-VALUES(1000, 'Issue', 'Issue for test', 3, 1, 2, now(), now());
+VALUES(1000, 'Issue', 'for test', 3, 1, 2, now(), now());

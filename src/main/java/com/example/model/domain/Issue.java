@@ -21,7 +21,7 @@ public class Issue {
 
     private String subject;
     private String description;
-
+    private String priority;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="project_id")
     private Project project;
