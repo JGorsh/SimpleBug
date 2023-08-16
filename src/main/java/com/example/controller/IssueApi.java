@@ -1,9 +1,6 @@
 package com.example.controller;
 
-import com.example.model.dto.CreateIssueRequestDto;
-import com.example.model.dto.IssueDto;
-import com.example.model.dto.SearchIssueDto;
-import com.example.model.dto.UpdateIssueRequestDto;
+import com.example.model.dto.*;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,4 +28,8 @@ public interface IssueApi {
                                          @RequestParam(required = false, defaultValue = "10") Integer size,
                                          @RequestBody(required = false) List<SearchIssueDto> searchIssueDtos);
 
+    @GetMapping("comments")
+    Page<CommentDto> getAllComments(@RequestParam(required = false) Long issueId,
+            @RequestParam(required = false, defaultValue = "0") Integer page,
+            @RequestParam(required = false, defaultValue = "10") Integer size);
 }

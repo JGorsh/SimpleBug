@@ -34,9 +34,6 @@
         <addForeignKeyConstraint baseTableName="issue" baseColumnNames="person_id"
                                  constraintName="issue_person_fk" referencedTableName="person" referencedColumnNames="id" />
     </changeSet>
-    <changeSet id="202203272017" author="pmikhalev">
-        <sqlFile path="data/init.sql" relativeToChangelogFile="true"/>
-    </changeSet>
     <changeSet id="202203291413" author="pmikhalev">
         <createTable tableName="comment">
             <column autoIncrement="true" name="id" type="BIGSERIAL">
@@ -48,5 +45,8 @@
         </createTable>
         <addForeignKeyConstraint baseTableName="comment" baseColumnNames="issue_id"
                                  constraintName="issue_comment_fk" referencedTableName="issue" referencedColumnNames="id" />
+    </changeSet>
+    <changeSet id="202203272017" author="pmikhalev">
+        <sqlFile path="data/init.sql" relativeToChangelogFile="true"/>
     </changeSet>
 </databaseChangeLog>

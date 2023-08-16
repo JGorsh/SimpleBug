@@ -1,7 +1,6 @@
 package com.example.service;
 
 import com.example.mapping.CommentMapper;
-import com.example.model.domain.Issue;
 import com.example.model.dto.CommentDto;
 import com.example.repository.CommentRepository;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ public class CommentServiceRdb implements CommentService{
     private final CommentMapper mapper;
 
     @Override
-    public Page<CommentDto> getAllComment(Issue issue, Integer page, Integer size) {
-        return commentRepository.findAllByIssue(issue, PageRequest.of(page, size)).map(mapper::fromEntity);
+    public Page<CommentDto> getAllComment(Long issueId, Integer page, Integer size) {
+        return commentRepository.findAllByIssueId(issueId, PageRequest.of(page, size)).map(mapper::fromEntity);
     }
 }
