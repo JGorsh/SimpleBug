@@ -21,17 +21,17 @@ public class FilterSpecification{
             for(SearchIssueDto searchIssueDto : searchIssueDtos){
                 switch (searchIssueDto.getKey()) {
                     case SUBJECT:
-                        Predicate likeSubject = builder.like(builder.lower(root.get("subject")),
+                        Predicate likeSubject = builder.like(builder.lower(root.get(searchIssueDto.getKey().getName())),
                                 "%" + searchIssueDto.getValue().toString().toLowerCase() + "%");
                         predicates.add(likeSubject);
                         break;
                     case DESCRIPTION:
-                        Predicate likeDesc = builder.like(builder.lower(root.get("description")),
+                        Predicate likeDesc = builder.like(builder.lower(root.get(searchIssueDto.getKey().getName())),
                                 "%" + searchIssueDto.getValue().toString().toLowerCase() + "%");
                         predicates.add(likeDesc);
                         break;
                     case ID:
-                        Predicate equal = builder.equal(root.get("id"), searchIssueDto.getValue());
+                        Predicate equal = builder.equal(root.get(searchIssueDto.getKey().getName()), searchIssueDto.getValue());
                         predicates.add(equal);
                         break;
                 }

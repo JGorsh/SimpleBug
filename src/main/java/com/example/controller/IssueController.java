@@ -7,6 +7,7 @@ import com.example.service.FilterSpecification;
 import com.example.service.IssueService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,7 +52,7 @@ public class IssueController implements IssueApi {
     }
 
     @Override
-    public Page<CommentDto> getAllComments(Long issueId, Integer page, Integer size) {
-        return commentService.getAllComment(issueId, page, size);
+    public Page<CommentDto> getAllComments(Long issueId, Pageable pageable) {
+        return commentService.getAllComment(issueId, pageable);
     }
 }

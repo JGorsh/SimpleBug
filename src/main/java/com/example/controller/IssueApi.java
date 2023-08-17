@@ -2,6 +2,8 @@ package com.example.controller;
 
 import com.example.model.dto.*;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +32,5 @@ public interface IssueApi {
 
     @GetMapping("comments")
     Page<CommentDto> getAllComments(@RequestParam(required = false) Long issueId,
-            @RequestParam(required = false, defaultValue = "0") Integer page,
-            @RequestParam(required = false, defaultValue = "10") Integer size);
+                                    @PageableDefault(value = 2, page = 0) Pageable pageable);
 }
