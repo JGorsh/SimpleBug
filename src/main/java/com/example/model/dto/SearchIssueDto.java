@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SearchIssueDto {
-    private String key;
-    private Object value;
-    private SearchOperation operation;
+    private FieldNameFilter key;
+    private String value;
 }

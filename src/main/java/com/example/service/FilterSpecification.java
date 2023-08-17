@@ -19,32 +19,24 @@ public class FilterSpecification{
             List<Predicate> predicates = new ArrayList<>();
 
             for(SearchIssueDto searchIssueDto : searchIssueDtos){
-                switch (searchIssueDto.getOperation()){
-                    case LIKE:
-                        Predicate like = builder.like(builder.lower(root.get(searchIssueDto.getKey())),
+                switch (searchIssueDto.getKey()) {
+                    case SUBJECT:
+                        Predicate likeSubject = builder.like(builder.lower(root.get(searchIssueDto.getKey().getName())),
                                 "%" + searchIssueDto.getValue().toString().toLowerCase() + "%");
-                        predicates.add(like);
+                        predicates.add(likeSubject);
                         break;
-                    case EQUAL:
-                        Predicate equal = builder.equal(root.get(searchIssueDto.getKey()), searchIssueDto.getValue());
+                    case DESCRIPTION:
+                        Predicate likeDesc = builder.like(builder.lower(root.get(searchIssueDto.getKey().getName())),
+                                "%" + searchIssueDto.getValue().toString().toLowerCase() + "%");
+                        predicates.add(likeDesc);
+                        break;
+                    case ID:
+                        Predicate equal = builder.equal(root.get(searchIssueDto.getKey().getName()), searchIssueDto.getValue());
                         predicates.add(equal);
-                        break;
-                    case IN:
-                        Predicate in = builder.in(root.get(searchIssueDto.getKey())).value(searchIssueDto.getValue());
-                        predicates.add(in);
-                        break;
-                    case NOT_EQUAL:
-                        Predicate notEqual = builder.notEqual(root.get(searchIssueDto.getKey()), searchIssueDto.getValue());
-                        predicates.add(notEqual);
-                        break;
-                    case NOT_IN:
-                        Predicate notIn = builder.not(root.get(searchIssueDto.getKey())).in(searchIssueDto.getValue());
-                        predicates.add(notIn);
                         break;
                 }
             }
             return builder.and(predicates.toArray(new Predicate[0]));
         };
-
     }
 }

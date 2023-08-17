@@ -1,11 +1,8 @@
 package com.example.model.dto;
 
-import com.example.model.domain.Comment;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-
 import java.time.Instant;
-import java.util.List;
 
 @Data
 public class IssueDto {
